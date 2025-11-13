@@ -7,49 +7,53 @@ import Button from "./components/Button";
 import Card from "./components/Card";
 import LanguageProvider, { LanguageContext } from "./components/LanguageContext";
 import Dropdown from "./components/Dropdown";
+import { createBrowserRouter, Navigate, Outlet, RouterProvider } from "react-router";
+import CoursePage from "./feature/CoursePage";
+import CourseApply from "./feature/course-apply/CourseApply";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <AppContainer />,
+    children: [
+      {
+        index: true,
+        element: <Navigate to="/courses" />,
+      },
+      {
+        path: "courses",
+        children: [
+          { index: true, element: <CoursePage /> },
+          { path: ":id/apply", element: <CourseApply /> },
+        ], //:id znači da se radi o varijabli
+      },
+    ],
+  },
+]);
+
+function AppContainer() {
+  return (
+    <div className="container">
+      <NavBar />
+      <Outlet />
+    </div>
+  );
+}
 
 function App() {
-  const [counter, setCounter] = useState(0);
-
-  const onIncrement = () => {
-    setCounter((old) => old + 1);
-  };
-
-  const courses = [
-    {
-      src: "https://croz.net/app/uploads/2025/03/5a0ac8a2-cb0d-401a-b18a-a4890b9c5fe6.webp",
-      title: "Course 1",
-      duration: 24,
-      category: "DEVOPS",
-    },
-    {
-      src: "https://croz.net/app/uploads/2025/03/untitled-design.jpg",
-      title: "Course 2",
-      duration: 30,
-      category: "DEVOPS",
-    },
-    {
-      src: "https://croz.net/app/uploads/2025/03/cka-preview-image.jpg",
-      title: "Course3",
-      duration: 40,
-      category: "DEVOPS",
-    },
-  ];
-
   return (
     <LanguageProvider>
-      <div className="container">
-        <div className="navBar">
-          <Title title="Education" subtitle="Continuous education is one of the crucial factors for success." />
-          <LanguagePicker />
-        </div>
-        <div className="content">
-          {courses.map((course) => (
-            <Card {...course} key={course.title} />
-          ))}
-        </div>
-      </div>
+      <RouterProvider router={router} />
     </LanguageProvider>
+  );
+}
+
+function NavBar() {
+  return (
+    <div className="navBar">
+      <Title title="Education" subtitle="Continuous education is one of the crucial factors for success." />
+      <LanguagePicker />
+    </div>
   );
 }
 

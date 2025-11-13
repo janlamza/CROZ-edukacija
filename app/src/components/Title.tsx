@@ -7,7 +7,7 @@ export default function Title({ title, subtitle }: TitleProps) {
   return (
     <>
       <div>
-        <h1 style={{color: "gray"}}>{title}</h1>
+        <h1 style={{ color: "gray" }}>{title}</h1>
         <h5>{subtitle}</h5>
       </div>
     </>

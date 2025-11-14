@@ -39,7 +39,7 @@ export default function CourseApply() {
         <Input name="company" label="Company" />
         <Input name="email" label="Email" />
         <Input name="message" label="Message" className="GridSpan2" />
-        <Button title="Apply" />
+        <Button label="Apply" type="submit" />
       </form>
     </div>
   );

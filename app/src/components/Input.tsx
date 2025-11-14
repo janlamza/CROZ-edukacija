@@ -1,4 +1,3 @@
-import { type ChangeEvent } from "react";
 import "./Input.css";
 
 interface InputProps {

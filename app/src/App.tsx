@@ -11,11 +11,13 @@ import { createBrowserRouter, Navigate, Outlet, RouterProvider } from "react-rou
 import CoursePage from "./feature/CoursePage";
 import CourseApply from "./feature/course-apply/CourseApply";
 import CourseAttendants from "./feature/Course-attendants/CourseAttendants";
+import { ErrorBoundary } from "react-error-boundary";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <AppContainer />,
+    errorElement: <div>Global error</div>,
     children: [
       {
         index: true,
@@ -26,7 +28,7 @@ const router = createBrowserRouter([
         children: [
           { index: true, element: <CoursePage /> },
           { path: ":id/apply", element: <CourseApply /> },
-          { path: ":id/attendants", element: <CourseAttendants /> },
+          { path: ":id/attendants", element: <CourseAttendants />, errorElement: <div>Greska s dohvatom polaznika</div> },
         ], //:id znači da se radi o varijabli
       },
     ],
@@ -44,9 +46,11 @@ function AppContainer() {
 
 function App() {
   return (
-    <LanguageProvider>
-      <RouterProvider router={router} />
-    </LanguageProvider>
+    <ErrorBoundary fallback={<div>Ovo je boundry od cijele app</div>}>
+      <LanguageProvider>
+        <RouterProvider router={router} />
+      </LanguageProvider>
+    </ErrorBoundary>
   );
 }
 

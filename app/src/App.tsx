@@ -10,6 +10,7 @@ import Dropdown from "./components/Dropdown";
 import { createBrowserRouter, Navigate, Outlet, RouterProvider } from "react-router";
 import CoursePage from "./feature/CoursePage";
 import CourseApply from "./feature/course-apply/CourseApply";
+import CourseAttendants from "./feature/Course-attendants/CourseAttendants";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,7 @@ const router = createBrowserRouter([
         children: [
           { index: true, element: <CoursePage /> },
           { path: ":id/apply", element: <CourseApply /> },
+          { path: ":id/attendants", element: <CourseAttendants /> },
         ], //:id znači da se radi o varijabli
       },
     ],
